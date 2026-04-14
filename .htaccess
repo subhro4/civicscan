@@ -1,0 +1,42 @@
+Options -Indexes
+Options -MultiViews
+
+# PHP settings
+php_value upload_max_filesize 50M
+php_value post_max_size 55M
+php_value max_execution_time 120
+php_value max_input_time 120
+
+# Deny access to includes directory
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Block direct access to includes
+  RewriteRule ^includes/ - [F,L]
+
+  # Redirect HTTP to HTTPS (uncomment in production)
+  # RewriteCond %{HTTPS} off
+  # RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+</IfModule>
+
+# Security headers
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set X-XSS-Protection "1; mode=block"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# Deny access to sensitive files
+<FilesMatch "\.(sql|log|env|sh|bak|orig|tmp)$">
+  Order deny,allow
+  Deny from all
+</FilesMatch>
+
+# Cache static assets
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType text/css      "access plus 1 month"
+  ExpiresByType text/javascript "access plus 1 month"
+</IfModule>
