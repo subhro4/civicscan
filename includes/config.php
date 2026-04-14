@@ -8,13 +8,13 @@
 define('APP_NAME',    'CivicScan');
 define('APP_TAGLINE', 'Empowering Your Vote');
 define('APP_VERSION', '1.0.0');
-define('APP_URL',     'http://localhost/civicscan'); // change for production
+define('APP_URL',     'http://civicscan.loc'); // change for production
 define('APP_ROOT',    dirname(__DIR__));
 
 // ─── Database ────────────────────────────────────────────────────────────────
 define('DB_HOST',     'localhost');
 define('DB_PORT',     '3306');
-define('DB_NAME',     'voter_list_management');
+define('DB_NAME',     'civicscan');
 define('DB_USER',     'root');      // change for production
 define('DB_PASS',     '');          // change for production
 define('DB_CHARSET',  'utf8mb4');

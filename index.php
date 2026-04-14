@@ -31,23 +31,211 @@ tailwind.config = {
 </script>
 <link rel="stylesheet" href="<?= APP_URL ?>/assets/css/app.css">
 <style>
+  html { scroll-behavior: smooth; }
   body { font-family: 'DM Sans', sans-serif; background: #0d1117; color: #e6edf3; overflow-x: hidden; }
+
   .hero-grid {
     background-image:
       linear-gradient(rgba(37,99,235,0.06) 1px, transparent 1px),
       linear-gradient(90deg, rgba(37,99,235,0.06) 1px, transparent 1px);
     background-size: 48px 48px;
   }
+
+  .bg-mesh-blue {
+    background-image:
+      radial-gradient(ellipse 80% 60% at 30% 20%, rgba(37,99,235,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 80% at 70% 80%, rgba(124,58,237,0.08) 0%, transparent 60%);
+  }
+
+  .bg-mesh-emerald {
+    background-image:
+      radial-gradient(ellipse 80% 60% at 70% 30%, rgba(16,185,129,0.1) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 80% at 20% 70%, rgba(59,130,246,0.06) 0%, transparent 60%);
+  }
+
+  .bg-mesh-red {
+    background-image:
+      radial-gradient(ellipse 80% 60% at 20% 30%, rgba(239,68,68,0.1) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 80% at 80% 70%, rgba(124,58,237,0.06) 0%, transparent 60%);
+  }
+
   .glow-blue { box-shadow: 0 0 60px rgba(37,99,235,0.25), 0 0 120px rgba(37,99,235,0.1); }
   .text-gradient { background: linear-gradient(135deg, #fff 0%, #93c5fd 50%, #3b82f6 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-  .feature-card { background: #161b22; border: 1px solid #21262d; border-radius: 1rem; padding: 1.75rem; transition: all 0.3s; }
-  .feature-card:hover { border-color: #3b82f6; transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+
+  .feature-card {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 1rem;
+    padding: 1.75rem;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .feature-card:hover {
+    border-color: #3b82f6;
+    transform: translateY(-6px);
+    box-shadow: 0 25px 50px rgba(0,0,0,0.4), 0 0 40px rgba(37,99,235,0.1);
+  }
+
+  .step-card {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 1rem;
+    padding: 1.75rem;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+  }
+  .step-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--step-color), transparent);
+    opacity: 0;
+    transition: opacity 0.35s;
+  }
+  .step-card:hover::before { opacity: 1; }
+  .step-card:hover {
+    border-color: #484f58;
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+  }
+
+  .security-card {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 1.25rem;
+    padding: 2rem;
+    transition: all 0.35s;
+  }
+  .security-card:hover {
+    border-color: rgba(239,68,68,0.4);
+    box-shadow: 0 0 80px rgba(239,68,68,0.08);
+  }
+
   .scan-line { position: absolute; width: 100%; height: 2px; background: linear-gradient(90deg, transparent, rgba(59,130,246,0.8), transparent); animation: scan-anim 3s ease-in-out infinite; }
   @keyframes scan-anim { 0%,100% { top: 10%; opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 0% { top: 10%; } 100% { top: 90%; } }
   @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
   .float { animation: float 4s ease-in-out infinite; }
-  nav a { transition: color 0.15s; }
-  .hero-stat { border: 1px solid rgba(59,130,246,0.2); background: rgba(59,130,246,0.05); border-radius: 0.75rem; padding: 1.25rem 1.5rem; }
+
+  nav a { transition: color 0.2s, opacity 0.2s; }
+  nav a:hover { color: #fff; opacity: 1; }
+
+  .hero-stat {
+    border: 1px solid rgba(59,130,246,0.25);
+    background: rgba(59,130,246,0.08);
+    border-radius: 0.75rem;
+    padding: 1.25rem 1.5rem;
+    transition: all 0.3s;
+  }
+  .hero-stat:hover {
+    border-color: rgba(59,130,246,0.5);
+    background: rgba(59,130,246,0.12);
+    transform: translateY(-2px);
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.65rem 1.25rem;
+    border-radius: 0.6rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid transparent;
+    white-space: nowrap;
+    background: #2563eb;
+    color: #fff;
+  }
+  .btn-primary:hover {
+    background: #1d4ed8;
+    border-color: #1d4ed8;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(37,99,235,0.35);
+  }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.65rem 1.25rem;
+    border-radius: 0.6rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid #30363d;
+    white-space: nowrap;
+    background: #21262d;
+    color: #e6edf3;
+  }
+  .btn-secondary:hover {
+    background: #30363d;
+    border-color: #484f58;
+    transform: translateY(-2px);
+  }
+
+  .nav-link { position: relative; }
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: #3b82f6;
+    transition: width 0.3s ease;
+  }
+  .nav-link:hover::after { width: 100%; }
+
+  .hero-badge {
+    animation: fade-in-up 0.6s ease-out forwards;
+    opacity: 0;
+  }
+  @keyframes fade-in-up {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-title { animation: fade-in-up 0.7s 0.1s ease-out forwards; opacity: 0; }
+  .hero-desc { animation: fade-in-up 0.7s 0.2s ease-out forwards; opacity: 0; }
+  .hero-actions { animation: fade-in-up 0.7s 0.3s ease-out forwards; opacity: 0; }
+  .hero-stats { animation: fade-in-up 0.7s 0.4s ease-out forwards; opacity: 0; }
+  .hero-visual { animation: fade-in-up 0.8s 0.2s ease-out forwards; opacity: 0; }
+
+  .section-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem 0.85rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    transition: all 0.3s;
+  }
+
+  .cta-section {
+    background: linear-gradient(135deg, rgba(37,99,235,0.08) 0%, rgba(124,58,237,0.06) 100%);
+    border-top: 1px solid #30363d;
+    border-bottom: 1px solid #30363d;
+  }
+
+  .feature-icon-wrap {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+  }
+  .feature-card:hover .feature-icon-wrap {
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(59,130,246,0.3);
+  }
 </style>
 </head>
 <body>
@@ -60,9 +248,9 @@ tailwind.config = {
       <span class="font-display font-bold text-white text-lg">Civic<span class="text-blue-400">Scan</span></span>
     </a>
     <div class="hidden md:flex items-center gap-8 text-sm text-slate-400">
-      <a href="#features" class="hover:text-white">Features</a>
-      <a href="#how-it-works" class="hover:text-white">How It Works</a>
-      <a href="#security" class="hover:text-white">Security</a>
+      <a href="#features" class="nav-link hover:text-white opacity-90">Features</a>
+      <a href="#how-it-works" class="nav-link hover:text-white opacity-90">How It Works</a>
+      <a href="#security" class="nav-link hover:text-white opacity-90">Security</a>
     </div>
     <a href="<?= APP_URL ?>/login.php" class="btn btn-primary text-sm px-5 py-2">
       Sign In
@@ -80,18 +268,18 @@ tailwind.config = {
     <div class="grid lg:grid-cols-2 gap-16 items-center">
       <!-- Text -->
       <div>
-        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-medium mb-8">
+        <div class="hero-badge inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/25 text-blue-400 text-xs font-medium mb-8">
           <span class="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse"></span>
           Secure · Role-Based · Internal Platform
         </div>
-        <h1 class="font-display font-bold text-5xl lg:text-6xl leading-tight mb-6">
+        <h1 class="hero-title font-display font-bold text-5xl lg:text-6xl leading-tight mb-6">
           <span class="text-gradient">Empowering</span><br>
           <span class="text-white">Your Vote.</span>
         </h1>
-        <p class="text-slate-400 text-lg leading-relaxed mb-10 max-w-lg">
+        <p class="hero-desc text-slate-400 text-lg leading-relaxed mb-10 max-w-lg">
           A powerful internal platform to import voter-list PDFs, search records instantly, and navigate the complete electoral hierarchy — State to Voter, in seconds.
         </p>
-        <div class="flex flex-wrap items-center gap-4">
+        <div class="hero-actions flex flex-wrap items-center gap-4">
           <a href="<?= APP_URL ?>/login.php" class="btn btn-primary px-7 py-3 text-base glow-blue">
             Access Platform
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
@@ -190,9 +378,10 @@ tailwind.config = {
 </section>
 
 <!-- ── Features ────────────────────────────────────────────────────────────── -->
-<section id="features" class="py-24 max-w-6xl mx-auto px-6">
+<section id="features" class="py-24 bg-mesh-blue" style="border-top: 1px solid #30363d; border-bottom: 1px solid #30363d;">
+  <div class="max-w-6xl mx-auto px-6">
   <div class="text-center mb-16">
-    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-medium mb-4">Platform Capabilities</div>
+    <div class="section-label bg-blue-500/10 border border-blue-500/25 text-blue-400 mb-4">Platform Capabilities</div>
     <h2 class="font-display font-bold text-4xl text-white mb-4">Everything you need to<br>manage voter data.</h2>
     <p class="text-slate-400 max-w-xl mx-auto">From PDF ingestion to hierarchical drill-down navigation — built for speed, accuracy, and trust.</p>
   </div>
@@ -221,7 +410,7 @@ tailwind.config = {
     ];
     foreach ($features as $f): ?>
     <div class="feature-card">
-      <div class="w-10 h-10 <?= $f['bg'] ?> rounded-xl flex items-center justify-center mb-4">
+      <div class="feature-icon-wrap <?= $f['bg'] ?>">
         <svg class="w-5 h-5 <?= $f['color'] ?>" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="<?= $f['icon'] ?>"/></svg>
       </div>
       <h3 class="font-display font-semibold text-white text-base mb-2"><?= $f['title'] ?></h3>
@@ -229,26 +418,27 @@ tailwind.config = {
     </div>
     <?php endforeach; ?>
   </div>
+  </div>
 </section>
 
 <!-- ── How It Works ─────────────────────────────────────────────────────────── -->
-<section id="how-it-works" class="py-24 border-y border-surface-600">
+<section id="how-it-works" class="py-24 bg-mesh-emerald" style="border-top: 1px solid #30363d; border-bottom: 1px solid #30363d;">
   <div class="max-w-6xl mx-auto px-6">
     <div class="text-center mb-16">
-      <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-medium mb-4">Workflow</div>
+      <div class="section-label bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 mb-4">Workflow</div>
       <h2 class="font-display font-bold text-4xl text-white mb-4">How CivicScan works</h2>
     </div>
     <div class="grid md:grid-cols-4 gap-6">
       <?php
       $steps = [
-        ['num'=>'01','title'=>'Upload PDF','desc'=>'Authorized users upload voter-list PDFs through the secure import module.','color'=>'border-blue-500'],
-        ['num'=>'02','title'=>'Extract & Normalize','desc'=>'The system parses, maps, and deduplicates all voter records from the PDF.','color'=>'border-violet-500'],
-        ['num'=>'03','title'=>'Stored & Indexed','desc'=>'Records are stored in MySQL with full geographic hierarchy and indexed for fast search.','color'=>'border-emerald-500'],
-        ['num'=>'04','title'=>'Search & Navigate','desc'=>'Users search by any field or drill down State → District → Constituency → Voter.','color'=>'border-amber-500'],
+        ['num'=>'01','title'=>'Upload PDF','desc'=>'Authorized users upload voter-list PDFs through the secure import module.','color'=>'#3b82f6'],
+        ['num'=>'02','title'=>'Extract & Normalize','desc'=>'The system parses, maps, and deduplicates all voter records from the PDF.','color'=>'#8b5cf6'],
+        ['num'=>'03','title'=>'Stored & Indexed','desc'=>'Records are stored in MySQL with full geographic hierarchy and indexed for fast search.','color'=>'#10b981'],
+        ['num'=>'04','title'=>'Search & Navigate','desc'=>'Users search by any field or drill down State → District → Constituency → Voter.','color'=>'#f59e0b'],
       ];
       foreach ($steps as $s): ?>
-      <div class="feature-card border-t-2 <?= $s['color'] ?>">
-        <div class="font-display font-bold text-3xl text-slate-800 mb-3"><?= $s['num'] ?></div>
+      <div class="step-card" style="--step-color: <?= $s['color'] ?>; border-top: 3px solid <?= $s['color'] ?>;">
+        <div class="font-display font-bold text-4xl mb-4" style="color: rgba(255,255,255,0.06);"><?= $s['num'] ?></div>
         <h3 class="font-display font-semibold text-white text-base mb-2"><?= $s['title'] ?></h3>
         <p class="text-slate-400 text-sm"><?= $s['desc'] ?></p>
       </div>
@@ -258,10 +448,11 @@ tailwind.config = {
 </section>
 
 <!-- ── Security ────────────────────────────────────────────────────────────── -->
-<section id="security" class="py-24 max-w-6xl mx-auto px-6">
+<section id="security" class="py-24 bg-mesh-red" style="border-top: 1px solid #30363d; border-bottom: 1px solid #30363d;">
+  <div class="max-w-6xl mx-auto px-6">
   <div class="grid lg:grid-cols-2 gap-16 items-center">
     <div>
-      <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-red-500/10 border border-red-500/20 text-red-400 text-xs font-medium mb-6">Enterprise Security</div>
+      <div class="section-label bg-red-500/10 border border-red-500/25 text-red-400 mb-6">Enterprise Security</div>
       <h2 class="font-display font-bold text-4xl text-white mb-6">Built secure,<br>from the ground up.</h2>
       <p class="text-slate-400 mb-8 leading-relaxed">Every layer of CivicScan is designed with security in mind — protecting voter data and administrative access at every point.</p>
       <div class="space-y-4">
@@ -284,7 +475,7 @@ tailwind.config = {
       </div>
     </div>
     <div class="relative">
-      <div class="feature-card p-8" style="border-color: rgba(239,68,68,0.2); box-shadow: 0 0 60px rgba(239,68,68,0.08);">
+      <div class="security-card" style="border-color: rgba(239,68,68,0.25); box-shadow: 0 0 80px rgba(239,68,68,0.08);">
         <div class="flex items-center gap-3 mb-6">
           <div class="w-10 h-10 bg-red-500/10 rounded-xl flex items-center justify-center">
             <svg class="w-5 h-5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
@@ -317,10 +508,11 @@ tailwind.config = {
       </div>
     </div>
   </div>
+  </div>
 </section>
 
 <!-- ── CTA ──────────────────────────────────────────────────────────────────── -->
-<section class="py-24 border-t border-surface-600">
+<section class="cta-section py-24">
   <div class="max-w-2xl mx-auto px-6 text-center">
     <img src="<?= APP_URL ?>/assets/images/logo-icon.svg" class="w-16 h-16 mx-auto mb-6 float" alt="">
     <h2 class="font-display font-bold text-4xl text-white mb-4">Ready to get started?</h2>
@@ -333,7 +525,7 @@ tailwind.config = {
 </section>
 
 <!-- ── Footer ───────────────────────────────────────────────────────────────── -->
-<footer class="border-t border-surface-600 py-8">
+<footer style="border-top: 1px solid #30363d;" class="py-8">
   <div class="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
     <div class="flex items-center gap-3">
       <img src="<?= APP_URL ?>/assets/images/logo-icon.svg" class="w-6 h-6" alt="">

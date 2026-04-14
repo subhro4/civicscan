@@ -462,11 +462,10 @@ ON DUPLICATE KEY UPDATE
 SET FOREIGN_KEY_CHECKS = 1;
 
 -- =====================================================================
--- OPTIONAL FIRST ADMIN INSERT
--- Replace the password hash with a real PHP password_hash() output.
--- Example:
--- INSERT INTO users
--- (`role`, `name`, `email`, `phone`, `password_hash`, `status`, `theme_preference`)
--- VALUES
--- ('administrator', 'Super Admin', 'admin@example.com', '9999999999', '$2y$10$replace_with_real_php_hash', 'active', 'dark');
+-- FIRST ADMIN ACCOUNT
+-- =====================================================================
+INSERT INTO `users`
+  (`role`, `name`, `email`, `phone`, `password_hash`, `status`, `created_at`, `updated_at`)
+VALUES
+  ('administrator', 'admin', 'subhro.pramanik7@gmail.com', '', '$2y$12$0i5udR55sq9A3X75zwPYmeSMbSdy/3Lr8cbD6kkPR/gUnhern4qNC', 'active', NOW(), NOW());
 -- =====================================================================
