@@ -11,8 +11,8 @@ require_admin();
 
 $pageTitle   = 'Add User';
 $breadcrumbs = [
-    ['label' => 'Dashboard',       'url' => APP_URL . '/dashboard.php'],
-    ['label' => 'Users',           'url' => APP_URL . '/modules/users/index.php'],
+    ['label' => 'Dashboard',       'url' => APP_URL . '/dashboard'],
+    ['label' => 'Users',           'url' => APP_URL . '/modules/users'],
     ['label' => 'Add User'],
 ];
 
@@ -71,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         );
         audit('users', 'create', 'users', db_last_id(), null, $input);
         flash('success', 'User "' . $input['name'] . '" created successfully.');
-        redirect('modules/users/index.php');
+        redirect('modules/users');
     }
 }
 ?>
@@ -176,7 +176,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   <div class="flex items-center gap-3">
     <button type="submit" class="btn btn-primary">Create User</button>
-    <a href="<?= APP_URL ?>/modules/users/index.php" class="btn btn-secondary">Cancel</a>
+    <a href="<?= APP_URL ?>/modules/users" class="btn btn-secondary">Cancel</a>
   </div>
 </form>
 

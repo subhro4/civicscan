@@ -7,11 +7,11 @@ require_login();
 
 $stateId = (int)($_GET['state_id'] ?? 0);
 $state   = db_row('SELECT * FROM states WHERE id = ? AND status="active"', [$stateId]);
-if (!$state) { flash('error','State not found.'); redirect('modules/voters/index.php'); }
+if (!$state) { flash('error','State not found.'); redirect('modules/voters'); }
 
 $pageTitle   = $state['name'];
 $breadcrumbs = [
-    ['label'=>'Voter Directory','url'=> APP_URL.'/modules/voters/index.php'],
+    ['label'=>'Voter Directory','url'=> APP_URL.'/modules/voters'],
     ['label'=> h($state['name'])],
 ];
 
@@ -35,7 +35,7 @@ $districts = db_rows(
 <main class="page-content">
 
 <div class="flex items-center gap-3 mb-6">
-  <a href="<?= APP_URL ?>/modules/voters/index.php" class="btn btn-ghost btn-icon btn-sm">
+  <a href="<?= APP_URL ?>/modules/voters" class="btn btn-ghost btn-icon btn-sm">
     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
   </a>
   <div>
@@ -49,7 +49,7 @@ $districts = db_rows(
 <?php else: ?>
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
   <?php foreach ($districts as $d): ?>
-  <a href="<?= APP_URL ?>/modules/voters/constituencies.php?district_id=<?= $d['id'] ?>&state_id=<?= $stateId ?>" class="geo-card group">
+  <a href="<?= APP_URL ?>/modules/voters/constituencies?district_id=<?= $d['id'] ?>&state_id=<?= $stateId ?>" class="geo-card group">
     <div class="flex items-start justify-between mb-3">
       <div class="w-10 h-10 bg-sky-500/15 border border-sky-500/20 rounded-lg flex items-center justify-center">
         <svg class="w-4 h-4 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>

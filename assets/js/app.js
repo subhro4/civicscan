@@ -205,6 +205,6 @@ document.addEventListener('keydown', (e) => {
   if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
     e.preventDefault();
     const input = document.querySelector('[name="q"]');
-    input ? input.focus() : (window.location.href = CIVICSCAN.url + '/modules/voters/search.php');
+    input ? input.focus() : (window.location.href = CIVICSCAN.url + '/modules/voters/search');
   }
 });

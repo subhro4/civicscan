@@ -67,11 +67,11 @@ $states = db_rows(
           <p class="text-slate-500 text-sm">Here's what's happening in CivicScan today.</p>
         </div>
         <div class="flex items-center gap-3">
-          <a href="<?= APP_URL ?>/modules/voters/search.php" class="btn btn-secondary btn-sm">
+          <a href="<?= APP_URL ?>/modules/voters/search" class="btn btn-secondary btn-sm">
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
             Search Voters
           </a>
-          <a href="<?= APP_URL ?>/modules/import/index.php" class="btn btn-primary btn-sm">
+          <a href="<?= APP_URL ?>/modules/import" class="btn btn-primary btn-sm">
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
             Import PDF
           </a>
@@ -82,10 +82,10 @@ $states = db_rows(
       <div class="grid grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
         <?php
         $stats = [
-          ['label'=>'Total Voters',        'value'=>fmt_num($totalVoters),         'icon'=>'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z', 'color'=>'text-blue-400',    'bg'=>'bg-blue-500/10',    'accent'=>'#3b82f6', 'href'=>'modules/voters/index.php'],
-          ['label'=>'Constituencies',      'value'=>fmt_num($totalConstituencies), 'icon'=>'M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4', 'color'=>'text-violet-400', 'bg'=>'bg-violet-500/10', 'accent'=>'#8b5cf6', 'href'=>'modules/constituencies/index.php'],
-          ['label'=>'PDF Imports',         'value'=>fmt_num($totalImports),        'icon'=>'M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12', 'color'=>'text-emerald-400', 'bg'=>'bg-emerald-500/10', 'accent'=>'#10b981', 'href'=>'modules/import/index.php'],
-          ['label'=>'Platform Users',      'value'=>fmt_num($totalUsers),          'icon'=>'M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z', 'color'=>'text-amber-400',   'bg'=>'bg-amber-500/10',   'accent'=>'#f59e0b', 'href'=>'modules/users/index.php'],
+          ['label'=>'Total Voters',        'value'=>fmt_num($totalVoters),         'icon'=>'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z', 'color'=>'text-blue-400',    'bg'=>'bg-blue-500/10',    'accent'=>'#3b82f6', 'href'=>'modules/voters'],
+          ['label'=>'Constituencies',      'value'=>fmt_num($totalConstituencies), 'icon'=>'M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4', 'color'=>'text-violet-400', 'bg'=>'bg-violet-500/10', 'accent'=>'#8b5cf6', 'href'=>'modules/constituencies'],
+          ['label'=>'PDF Imports',         'value'=>fmt_num($totalImports),        'icon'=>'M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12', 'color'=>'text-emerald-400', 'bg'=>'bg-emerald-500/10', 'accent'=>'#10b981', 'href'=>'modules/import'],
+          ['label'=>'Platform Users',      'value'=>fmt_num($totalUsers),          'icon'=>'M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z', 'color'=>'text-amber-400',   'bg'=>'bg-amber-500/10',   'accent'=>'#f59e0b', 'href'=>'modules/users'],
         ];
         foreach ($stats as $s): ?>
         <a href="<?= APP_URL ?>/<?= $s['href'] ?>" class="stat-card block" style="--accent: <?= $s['accent'] ?>">
@@ -110,7 +110,7 @@ $states = db_rows(
               <h2 class="font-display font-semibold text-white text-sm">Recent PDF Imports</h2>
               <p class="text-slate-600 text-xs mt-0.5">Latest voter list upload batches</p>
             </div>
-            <a href="<?= APP_URL ?>/modules/import/index.php" class="btn btn-ghost btn-sm text-xs">View All</a>
+            <a href="<?= APP_URL ?>/modules/import" class="btn btn-ghost btn-sm text-xs">View All</a>
           </div>
           <?php if (empty($recentImports)): ?>
           <div class="empty-state py-12">
@@ -170,7 +170,7 @@ $states = db_rows(
           <?php else: ?>
           <div class="p-2 space-y-1">
             <?php foreach ($states as $st): ?>
-            <a href="<?= APP_URL ?>/modules/voters/districts.php?state_id=<?= $st['id'] ?>" class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-surface-700 transition-colors group">
+            <a href="<?= APP_URL ?>/modules/voters/districts?state_id=<?= $st['id'] ?>" class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-surface-700 transition-colors group">
               <div class="w-8 h-8 bg-blue-500/10 rounded-lg flex items-center justify-center flex-shrink-0">
                 <span class="text-blue-400 text-xs font-bold font-display"><?= strtoupper(substr($st['name'], 0, 2)) ?></span>
               </div>
@@ -181,7 +181,7 @@ $states = db_rows(
               <svg class="w-3.5 h-3.5 text-slate-700 group-hover:text-slate-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
             </a>
             <?php endforeach; ?>
-            <a href="<?= APP_URL ?>/modules/voters/index.php" class="flex items-center justify-center gap-1 py-2 text-xs text-blue-400 hover:text-blue-300 transition-colors mt-2">
+            <a href="<?= APP_URL ?>/modules/voters" class="flex items-center justify-center gap-1 py-2 text-xs text-blue-400 hover:text-blue-300 transition-colors mt-2">
               View all states <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
             </a>
           </div>
@@ -197,7 +197,7 @@ $states = db_rows(
             <h2 class="font-display font-semibold text-white text-sm">Recently Added Voters</h2>
             <p class="text-slate-600 text-xs mt-0.5">Latest records added to the database</p>
           </div>
-          <a href="<?= APP_URL ?>/modules/voters/search.php" class="btn btn-ghost btn-sm text-xs">Search All</a>
+          <a href="<?= APP_URL ?>/modules/voters/search" class="btn btn-ghost btn-sm text-xs">Search All</a>
         </div>
         <div class="overflow-x-auto">
           <table class="data-table">

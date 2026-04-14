@@ -16,13 +16,13 @@ $constituency = db_row(
      LEFT JOIN districts d ON d.id=c.district_id
      WHERE c.id=? AND c.deleted_at IS NULL', [$constituencyId]
 );
-if (!$constituency) { flash('error','Constituency not found.'); redirect('modules/voters/index.php'); }
+if (!$constituency) { flash('error','Constituency not found.'); redirect('modules/voters'); }
 
 $pageTitle   = $constituency['name'];
 $breadcrumbs = [
-    ['label'=>'Voter Directory','url'=>APP_URL.'/modules/voters/index.php'],
-    ['label'=>h($constituency['state_name']),'url'=>APP_URL.'/modules/voters/districts.php?state_id='.$stateId],
-    ['label'=>h($constituency['district_name']),'url'=>APP_URL.'/modules/voters/constituencies.php?district_id='.$districtId.'&state_id='.$stateId],
+    ['label'=>'Voter Directory','url'=>APP_URL.'/modules/voters'],
+    ['label'=>h($constituency['state_name']),'url'=>APP_URL.'/modules/voters/districts?state_id='.$stateId],
+    ['label'=>h($constituency['district_name']),'url'=>APP_URL.'/modules/voters/constituencies?district_id='.$districtId.'&state_id='.$stateId],
     ['label'=>h($constituency['name'])],
 ];
 
@@ -43,7 +43,7 @@ $parts = db_rows(
 <main class="page-content">
 
 <div class="flex items-center gap-3 mb-6">
-  <a href="<?= APP_URL ?>/modules/voters/constituencies.php?district_id=<?= $districtId ?>&state_id=<?= $stateId ?>" class="btn btn-ghost btn-icon btn-sm">
+  <a href="<?= APP_URL ?>/modules/voters/constituencies?district_id=<?= $districtId ?>&state_id=<?= $stateId ?>" class="btn btn-ghost btn-icon btn-sm">
     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
   </a>
   <div>
@@ -51,7 +51,7 @@ $parts = db_rows(
     <p class="text-slate-500 text-sm"><?= count($parts) ?> part<?= count($parts)!==1?'s':'' ?></p>
   </div>
   <div class="ml-auto">
-    <a href="<?= APP_URL ?>/modules/voters/records.php?constituency_id=<?= $constituencyId ?>&district_id=<?= $districtId ?>&state_id=<?= $stateId ?>" class="btn btn-primary btn-sm">
+    <a href="<?= APP_URL ?>/modules/voters/records?constituency_id=<?= $constituencyId ?>&district_id=<?= $districtId ?>&state_id=<?= $stateId ?>" class="btn btn-primary btn-sm">
       View All Voters
     </a>
   </div>
@@ -62,7 +62,7 @@ $parts = db_rows(
 <?php else: ?>
 <div class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
   <?php foreach ($parts as $p): ?>
-  <a href="<?= APP_URL ?>/modules/voters/records.php?part_id=<?= $p['id'] ?>&constituency_id=<?= $constituencyId ?>&district_id=<?= $districtId ?>&state_id=<?= $stateId ?>"
+  <a href="<?= APP_URL ?>/modules/voters/records?part_id=<?= $p['id'] ?>&constituency_id=<?= $constituencyId ?>&district_id=<?= $districtId ?>&state_id=<?= $stateId ?>"
      class="geo-card group">
     <div class="flex items-start justify-between mb-3">
       <div class="w-10 h-10 bg-violet-500/15 border border-violet-500/20 rounded-lg flex items-center justify-center">

@@ -7,12 +7,18 @@ php_value post_max_size 55M
 php_value max_execution_time 120
 php_value max_input_time 120
 
-# Deny access to includes directory
+# URL rewriting - remove .php extension
 <IfModule mod_rewrite.c>
   RewriteEngine On
+  RewriteBase /
 
   # Block direct access to includes
   RewriteRule ^includes/ - [F,L]
+
+  # Remove .php extension
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME}\.php -f
+  RewriteRule ^(.+?)/?$ $1.php [L]
 
   # Redirect HTTP to HTTPS (uncomment in production)
   # RewriteCond %{HTTPS} off

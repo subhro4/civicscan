@@ -16,10 +16,10 @@ $crumbDistrict     = $districtId ? db_row('SELECT id,name FROM districts WHERE i
 $crumbState        = $stateId ? db_row('SELECT id,name FROM states WHERE id=?',[$stateId]) : null;
 
 $pageTitle = 'Voter Records';
-$breadcrumbs = [['label'=>'Voter Directory','url'=>APP_URL.'/modules/voters/index.php']];
-if ($crumbState) $breadcrumbs[] = ['label'=>h($crumbState['name']),'url'=>APP_URL.'/modules/voters/districts.php?state_id='.$stateId];
-if ($crumbDistrict) $breadcrumbs[] = ['label'=>h($crumbDistrict['name']),'url'=>APP_URL.'/modules/voters/constituencies.php?district_id='.$districtId.'&state_id='.$stateId];
-if ($crumbConstituency) $breadcrumbs[] = ['label'=>h($crumbConstituency['name']),'url'=>APP_URL.'/modules/voters/parts.php?constituency_id='.$constituencyId.'&district_id='.$districtId.'&state_id='.$stateId];
+$breadcrumbs = [['label'=>'Voter Directory','url'=>APP_URL.'/modules/voters']];
+if ($crumbState) $breadcrumbs[] = ['label'=>h($crumbState['name']),'url'=>APP_URL.'/modules/voters/districts?state_id='.$stateId];
+if ($crumbDistrict) $breadcrumbs[] = ['label'=>h($crumbDistrict['name']),'url'=>APP_URL.'/modules/voters/constituencies?district_id='.$districtId.'&state_id='.$stateId];
+if ($crumbConstituency) $breadcrumbs[] = ['label'=>h($crumbConstituency['name']),'url'=>APP_URL.'/modules/voters/parts?constituency_id='.$constituencyId.'&district_id='.$districtId.'&state_id='.$stateId];
 $breadcrumbs[] = ['label'=>'Voters'];
 
 // Search / filter params

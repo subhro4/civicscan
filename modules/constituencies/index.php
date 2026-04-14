@@ -11,7 +11,7 @@ require_login();
 
 $pageTitle   = 'Constituencies';
 $breadcrumbs = [
-    ['label' => 'Dashboard', 'url' => APP_URL . '/dashboard.php'],
+    ['label' => 'Dashboard', 'url' => APP_URL . '/dashboard'],
     ['label' => 'Constituencies'],
 ];
 
@@ -91,7 +91,7 @@ $states   = db_rows('SELECT id, name FROM states WHERE status="active" ORDER BY 
       </select>
     </div>
     <button type="submit" class="btn btn-primary btn-sm">Filter</button>
-    <?php if ($q||$stateF||$type): ?><a href="<?= APP_URL ?>/modules/constituencies/index.php" class="btn btn-ghost btn-sm">Clear</a><?php endif; ?>
+    <?php if ($q||$stateF||$type): ?><a href="<?= APP_URL ?>/modules/constituencies" class="btn btn-ghost btn-sm">Clear</a><?php endif; ?>
   </form>
 </div>
 
@@ -142,7 +142,7 @@ $states   = db_rows('SELECT id, name FROM states WHERE status="active" ORDER BY 
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
               </button>
               <?php if (is_admin()): ?>
-              <button onclick="confirmDelete('<?= APP_URL ?>/modules/constituencies/ajax.php?action=delete&id=<?= $c['id'] ?>','<?= h($c['name']) ?>')"
+              <button onclick="confirmDelete('<?= APP_URL ?>/modules/constituencies/ajax?action=delete&id=<?= $c['id'] ?>','<?= h($c['name']) ?>')"
                       class="btn btn-ghost btn-icon btn-sm text-red-500 hover:text-red-400" data-tooltip="Delete">
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
               </button>
@@ -177,7 +177,7 @@ $states   = db_rows('SELECT id, name FROM states WHERE status="active" ORDER BY 
       <h3 id="modal-title" class="font-display font-semibold text-white text-base">Add Constituency</h3>
       <button onclick="closeModal('add-modal')" class="text-slate-500 hover:text-white"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg></button>
     </div>
-    <form method="POST" action="<?= APP_URL ?>/modules/constituencies/save.php">
+    <form method="POST" action="<?= APP_URL ?>/modules/constituencies/save">
       <?= csrf_field() ?>
       <input type="hidden" name="id" id="c_id" value="">
       <div class="modal-body space-y-4">
@@ -255,7 +255,7 @@ function loadDistricts(stateId, selectedId = '') {
   const sel = document.getElementById('c_district_id');
   sel.innerHTML = '<option value="">Loading…</option>';
   if (!stateId) { sel.innerHTML = '<option value="">Select district</option>'; return; }
-  fetch(CIVICSCAN.url + '/modules/constituencies/ajax.php?action=districts&state_id=' + stateId)
+  fetch(CIVICSCAN.url + '/modules/constituencies/ajax?action=districts&state_id=' + stateId)
     .then(r => r.json()).then(d => {
       sel.innerHTML = '<option value="">Select district</option>';
       d.forEach(dist => { sel.innerHTML += `<option value="${dist.id}" ${dist.id==selectedId?'selected':''}>${dist.name}</option>`; });
@@ -263,7 +263,7 @@ function loadDistricts(stateId, selectedId = '') {
 }
 
 function editConstituency(id) {
-  fetch(CIVICSCAN.url + '/modules/constituencies/ajax.php?action=get&id=' + id)
+  fetch(CIVICSCAN.url + '/modules/constituencies/ajax?action=get&id=' + id)
     .then(r => r.json()).then(c => {
       document.getElementById('modal-title').textContent = 'Edit Constituency';
       document.getElementById('c_id').value       = c.id;

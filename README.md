@@ -100,15 +100,15 @@ civicscan/
 
 | Module | Path | Access |
 |--------|------|--------|
-| Landing Page | `/index.php` | Public |
-| Login | `/login.php` | Public |
-| Dashboard | `/dashboard.php` | All Users |
-| Voter Directory | `/modules/voters/index.php` | All Users |
-| Voter Search | `/modules/voters/search.php` | All Users |
-| PDF Import | `/modules/import/index.php` | All Users |
-| Constituencies | `/modules/constituencies/index.php` | All Users |
-| User Management | `/modules/users/index.php` | **Admin Only** |
-| Settings | `/modules/settings/index.php` | All Users |
+| Landing Page | `/` | Public |
+| Login | `/login` | Public |
+| Dashboard | `/dashboard` | All Users |
+| Voter Directory | `/modules/voters` | All Users |
+| Voter Search | `/modules/voters/search` | All Users |
+| PDF Import | `/modules/import` | All Users |
+| Constituencies | `/modules/constituencies` | All Users |
+| User Management | `/modules/users` | **Admin Only** |
+| Settings | `/modules/settings` | All Users |
 
 ---
 

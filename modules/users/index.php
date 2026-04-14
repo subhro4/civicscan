@@ -11,7 +11,7 @@ require_admin();
 
 $pageTitle   = 'User Management';
 $breadcrumbs = [
-    ['label' => 'Dashboard', 'url' => APP_URL . '/dashboard.php'],
+    ['label' => 'Dashboard', 'url' => APP_URL . '/dashboard'],
     ['label' => 'Users'],
 ];
 
@@ -56,7 +56,7 @@ $users  = db_rows(
     <h1 class="font-display font-bold text-xl text-white">User Management</h1>
     <p class="text-slate-500 text-sm mt-0.5">Manage administrator and moderator accounts.</p>
   </div>
-  <a href="<?= APP_URL ?>/modules/users/create.php" class="btn btn-primary btn-sm">
+  <a href="<?= APP_URL ?>/modules/users/create" class="btn btn-primary btn-sm">
     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
     Add User
   </a>
@@ -87,7 +87,7 @@ $users  = db_rows(
     </div>
     <button type="submit" class="btn btn-primary btn-sm">Filter</button>
     <?php if ($q || $status || $role): ?>
-    <a href="<?= APP_URL ?>/modules/users/index.php" class="btn btn-ghost btn-sm">Clear</a>
+    <a href="<?= APP_URL ?>/modules/users" class="btn btn-ghost btn-sm">Clear</a>
     <?php endif; ?>
   </form>
 </div>
@@ -137,15 +137,15 @@ $users  = db_rows(
           <td class="text-slate-500 text-xs"><?= format_dt($u['created_at'], 'd M Y') ?></td>
           <td>
             <div class="flex items-center gap-1">
-              <a href="<?= APP_URL ?>/modules/users/edit.php?id=<?= $u['id'] ?>" class="btn btn-ghost btn-icon btn-sm" data-tooltip="Edit">
+              <a href="<?= APP_URL ?>/modules/users/edit?id=<?= $u['id'] ?>" class="btn btn-ghost btn-icon btn-sm" data-tooltip="Edit">
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
               </a>
               <?php if ($u['id'] != $user['id']): ?>
-              <button onclick="toggleStatus(this,'<?= APP_URL ?>/modules/users/ajax.php?action=toggle_status&id=<?= $u['id'] ?>')"
+              <button onclick="toggleStatus(this,'<?= APP_URL ?>/modules/users/ajax?action=toggle_status&id=<?= $u['id'] ?>')"
                       class="btn btn-ghost btn-icon btn-sm" data-tooltip="Toggle Status">
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l4-4 4 4m0 6l-4 4-4-4"/></svg>
               </button>
-              <button onclick="confirmDelete('<?= APP_URL ?>/modules/users/ajax.php?action=delete&id=<?= $u['id'] ?>','<?= h($u['name']) ?>')"
+              <button onclick="confirmDelete('<?= APP_URL ?>/modules/users/ajax?action=delete&id=<?= $u['id'] ?>','<?= h($u['name']) ?>')"
                       class="btn btn-ghost btn-icon btn-sm text-red-500 hover:text-red-400" data-tooltip="Delete">
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
               </button>

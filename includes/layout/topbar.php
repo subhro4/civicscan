@@ -31,7 +31,7 @@ $user = current_user();
 
   <!-- Global search -->
   <div class="hidden md:flex items-center">
-    <a href="<?= APP_URL ?>/modules/voters/search.php" class="flex items-center gap-2 px-3 py-1.5 bg-surface-700 border border-surface-500 rounded-lg text-sm text-slate-500 hover:text-slate-300 hover:border-brand-500/50 transition-all w-52">
+    <a href="<?= APP_URL ?>/modules/voters/search" class="flex items-center gap-2 px-3 py-1.5 bg-surface-700 border border-surface-500 rounded-lg text-sm text-slate-500 hover:text-slate-300 hover:border-brand-500/50 transition-all w-52">
       <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
       <span>Search voters…</span>
       <kbd class="ml-auto text-xs bg-surface-600 px-1.5 py-0.5 rounded border border-surface-500">⌘K</kbd>
@@ -56,11 +56,11 @@ $user = current_user();
         <div class="text-white font-medium truncate"><?= h($user['name']) ?></div>
         <div class="text-slate-500 text-xs truncate"><?= h($user['email']) ?></div>
       </div>
-      <a href="<?= APP_URL ?>/modules/settings/index.php" class="flex items-center gap-2 px-3 py-2 text-slate-300 hover:bg-surface-600 hover:text-white transition-colors">
+      <a href="<?= APP_URL ?>/modules/settings" class="flex items-center gap-2 px-3 py-2 text-slate-300 hover:bg-surface-600 hover:text-white transition-colors">
         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><circle cx="12" cy="12" r="3"/></svg>
         Settings
       </a>
-      <a href="<?= APP_URL ?>/modules/auth/logout.php" class="flex items-center gap-2 px-3 py-2 text-red-400 hover:bg-red-500/10 hover:text-red-300 transition-colors">
+      <a href="<?= APP_URL ?>/modules/auth/logout" class="flex items-center gap-2 px-3 py-2 text-red-400 hover:bg-red-500/10 hover:text-red-300 transition-colors">
         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
         Sign Out
       </a>

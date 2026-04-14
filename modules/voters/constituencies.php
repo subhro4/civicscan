@@ -8,12 +8,12 @@ require_login();
 $districtId = (int)($_GET['district_id'] ?? 0);
 $stateId    = (int)($_GET['state_id']    ?? 0);
 $district   = db_row('SELECT d.*, s.name AS state_name FROM districts d LEFT JOIN states s ON s.id=d.state_id WHERE d.id=?', [$districtId]);
-if (!$district) { flash('error','District not found.'); redirect('modules/voters/index.php'); }
+if (!$district) { flash('error','District not found.'); redirect('modules/voters'); }
 
 $pageTitle   = $district['name'];
 $breadcrumbs = [
-    ['label'=>'Voter Directory','url'=> APP_URL.'/modules/voters/index.php'],
-    ['label'=> h($district['state_name']),'url'=> APP_URL.'/modules/voters/districts.php?state_id='.$stateId],
+    ['label'=>'Voter Directory','url'=> APP_URL.'/modules/voters'],
+    ['label'=> h($district['state_name']),'url'=> APP_URL.'/modules/voters/districts?state_id='.$stateId],
     ['label'=> h($district['name'])],
 ];
 
@@ -37,7 +37,7 @@ $constituencies = db_rows(
 <main class="page-content">
 
 <div class="flex items-center gap-3 mb-6">
-  <a href="<?= APP_URL ?>/modules/voters/districts.php?state_id=<?= $stateId ?>" class="btn btn-ghost btn-icon btn-sm">
+  <a href="<?= APP_URL ?>/modules/voters/districts?state_id=<?= $stateId ?>" class="btn btn-ghost btn-icon btn-sm">
     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
   </a>
   <div>
@@ -66,7 +66,7 @@ $constituencies = db_rows(
       <td class="text-slate-300 text-sm font-medium"><?= fmt_num($c['voter_count']) ?></td>
       <td><?= status_badge($c['status']) ?></td>
       <td>
-        <a href="<?= APP_URL ?>/modules/voters/parts.php?constituency_id=<?= $c['id'] ?>&district_id=<?= $districtId ?>&state_id=<?= $stateId ?>"
+        <a href="<?= APP_URL ?>/modules/voters/parts?constituency_id=<?= $c['id'] ?>&district_id=<?= $districtId ?>&state_id=<?= $stateId ?>"
            class="btn btn-ghost btn-sm text-xs text-blue-400 hover:text-blue-300">
           View Parts <svg class="w-3 h-3 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
         </a>

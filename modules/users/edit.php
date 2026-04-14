@@ -11,13 +11,13 @@ require_admin();
 
 $id   = (int)($_GET['id'] ?? 0);
 $user = db_row('SELECT * FROM users WHERE id = ? AND deleted_at IS NULL', [$id]);
-if (!$user) { flash('error', 'User not found.'); redirect('modules/users/index.php'); }
+if (!$user) { flash('error', 'User not found.'); redirect('modules/users'); }
 
 $me          = current_user();
 $pageTitle   = 'Edit User';
 $breadcrumbs = [
-    ['label' => 'Dashboard', 'url' => APP_URL . '/dashboard.php'],
-    ['label' => 'Users',     'url' => APP_URL . '/modules/users/index.php'],
+    ['label' => 'Dashboard', 'url' => APP_URL . '/dashboard'],
+    ['label' => 'Users',     'url' => APP_URL . '/modules/users'],
     ['label' => 'Edit: ' . $user['name']],
 ];
 $errors = [];
@@ -64,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             );
             audit('users', 'update', 'users', $id, $user, $input);
             flash('success', 'User updated successfully.');
-            redirect("modules/users/edit.php?id=$id");
+            redirect("modules/users/edit?id=$id");
         }
     }
 
@@ -80,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 [hash_password($newPass), $me['id'], $id]);
             audit('users', 'password_reset', 'users', $id);
             flash('success', 'Password reset successfully.');
-            redirect("modules/users/edit.php?id=$id");
+            redirect("modules/users/edit?id=$id");
         }
     }
 }
@@ -162,7 +162,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   </div>
   <div class="flex items-center gap-3">
     <button type="submit" class="btn btn-primary">Save Changes</button>
-    <a href="<?= APP_URL ?>/modules/users/index.php" class="btn btn-secondary">Cancel</a>
+    <a href="<?= APP_URL ?>/modules/users" class="btn btn-secondary">Cancel</a>
   </div>
 </form>
 </div>

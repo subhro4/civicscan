@@ -32,7 +32,7 @@ switch ($action) {
         db_query('UPDATE users SET deleted_at = NOW(), deleted_by = ? WHERE id = ?', [$me['id'], $id]);
         audit('users', 'delete', 'users', $id, $target, null);
         flash('success', 'User "' . $target['name'] . '" deleted.');
-        redirect('modules/users/index.php');
+        redirect('modules/users');
         break;
 
     default:

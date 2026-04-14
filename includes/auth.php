@@ -39,7 +39,7 @@ function is_admin(): bool {
     return current_role() === 'administrator';
 }
 
-function require_login(string $redirect = '/login.php'): void {
+function require_login(string $redirect = '/login'): void {
     if (!is_logged_in()) {
         header('Location: ' . APP_URL . $redirect);
         exit;
@@ -50,7 +50,7 @@ function require_admin(): void {
     require_login();
     if (!is_admin()) {
         flash('error', 'Access denied. Administrator only.');
-        header('Location: ' . APP_URL . '/dashboard.php');
+        header('Location: ' . APP_URL . '/dashboard');
         exit;
     }
 }

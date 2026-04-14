@@ -7,7 +7,7 @@ require_once __DIR__ . '/includes/auth.php';
 
 // Redirect if already logged in
 if (is_logged_in()) {
-    header('Location: ' . APP_URL . '/dashboard.php');
+    header('Location: ' . APP_URL . '/dashboard');
     exit;
 }
 ?>
@@ -252,7 +252,7 @@ tailwind.config = {
       <a href="#how-it-works" class="nav-link hover:text-white opacity-90">How It Works</a>
       <a href="#security" class="nav-link hover:text-white opacity-90">Security</a>
     </div>
-    <a href="<?= APP_URL ?>/login.php" class="btn btn-primary text-sm px-5 py-2">
+    <a href="<?= APP_URL ?>/login" class="btn btn-primary text-sm px-5 py-2">
       Sign In
       <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
     </a>
@@ -280,7 +280,7 @@ tailwind.config = {
           A powerful internal platform to import voter-list PDFs, search records instantly, and navigate the complete electoral hierarchy — State to Voter, in seconds.
         </p>
         <div class="hero-actions flex flex-wrap items-center gap-4">
-          <a href="<?= APP_URL ?>/login.php" class="btn btn-primary px-7 py-3 text-base glow-blue">
+          <a href="<?= APP_URL ?>/login" class="btn btn-primary px-7 py-3 text-base glow-blue">
             Access Platform
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
           </a>
@@ -517,7 +517,7 @@ tailwind.config = {
     <img src="<?= APP_URL ?>/assets/images/logo-icon.svg" class="w-16 h-16 mx-auto mb-6 float" alt="">
     <h2 class="font-display font-bold text-4xl text-white mb-4">Ready to get started?</h2>
     <p class="text-slate-400 mb-8">Sign in with your administrator credentials to access the full platform.</p>
-    <a href="<?= APP_URL ?>/login.php" class="btn btn-primary px-10 py-3.5 text-base glow-blue inline-flex items-center gap-2">
+    <a href="<?= APP_URL ?>/login" class="btn btn-primary px-10 py-3.5 text-base glow-blue inline-flex items-center gap-2">
       Sign In to CivicScan
       <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
     </a>
@@ -532,7 +532,7 @@ tailwind.config = {
       <span class="font-display font-bold text-white">Civic<span class="text-blue-400">Scan</span></span>
       <span class="text-slate-600 text-sm">· Empowering Your Vote</span>
     </div>
-    <div class="text-slate-600 text-sm">v<?= APP_VERSION ?> · PHP + MySQL · Built with Tailwind CSS</div>
+    <div class="text-slate-600 text-sm"><?= date('Y') ?> · &copy; CivicScan. All rights reserved.</div>
   </div>
 </footer>
 

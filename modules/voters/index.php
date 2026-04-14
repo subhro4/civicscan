@@ -40,7 +40,7 @@ $totalVoters = array_sum(array_column($states, 'total_voters'));
     <h1 class="font-display font-bold text-xl text-white">Voter Directory</h1>
     <p class="text-slate-500 text-sm mt-0.5">Browse <?= fmt_num($totalVoters) ?> voters across <?= count($states) ?> state<?= count($states)!==1?'s':'' ?>.</p>
   </div>
-  <a href="<?= APP_URL ?>/modules/voters/search.php" class="btn btn-primary btn-sm">
+  <a href="<?= APP_URL ?>/modules/voters/search" class="btn btn-primary btn-sm">
     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
     Search Voters
   </a>
@@ -51,7 +51,7 @@ $totalVoters = array_sum(array_column($states, 'total_voters'));
   <svg class="empty-state-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/></svg>
   <div class="empty-state-title">No voter data yet</div>
   <div class="empty-state-desc mb-4">Import voter-list PDFs to start browsing states.</div>
-  <a href="<?= APP_URL ?>/modules/import/index.php" class="btn btn-primary btn-sm">Import PDF</a>
+  <a href="<?= APP_URL ?>/modules/import" class="btn btn-primary btn-sm">Import PDF</a>
 </div>
 <?php else: ?>
 
@@ -63,7 +63,7 @@ $totalVoters = array_sum(array_column($states, 'total_voters'));
     $color = $colors[$i % count($colors)];
     $initials = strtoupper(substr(preg_replace('/[aeiou\s]/i', '', $st['name']), 0, 2)) ?: strtoupper(substr($st['name'], 0, 2));
   ?>
-  <a href="<?= APP_URL ?>/modules/voters/districts.php?state_id=<?= $st['id'] ?>" class="geo-card group">
+  <a href="<?= APP_URL ?>/modules/voters/districts?state_id=<?= $st['id'] ?>" class="geo-card group">
     <div class="flex items-start justify-between mb-4">
       <div class="w-12 h-12 bg-<?= $color ?>-500/15 border border-<?= $color ?>-500/25 rounded-xl flex items-center justify-center">
         <span class="font-display font-bold text-<?= $color ?>-400 text-sm"><?= $initials ?></span>

@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['auth_user']['email'] = $email;
             audit('settings','profile_update','users',$me['id']);
             flash('success','Profile updated successfully.');
-            redirect('modules/settings/index.php');
+            redirect('modules/settings');
         }
     }
 
@@ -73,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 [hash_password($newPass),$me['id'],$me['id']]);
             audit('settings','password_change','users',$me['id']);
             flash('success','Password changed successfully.');
-            redirect('modules/settings/index.php');
+            redirect('modules/settings');
         }
     }
 
@@ -83,7 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         db_query('UPDATE users SET theme_preference=? WHERE id=?',[$theme,$me['id']]);
         $_SESSION['auth_user']['theme_preference'] = $theme;
         flash('success','Theme preference saved.');
-        redirect('modules/settings/index.php');
+        redirect('modules/settings');
     }
 }
 ?>

@@ -10,7 +10,7 @@ require_login();
 
 $pageTitle   = 'PDF Import';
 $breadcrumbs = [
-    ['label'=>'Dashboard','url'=>APP_URL.'/dashboard.php'],
+    ['label'=>'Dashboard','url'=>APP_URL.'/dashboard'],
     ['label'=>'PDF Import'],
 ];
 
@@ -61,12 +61,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['_action']) && $_POST[
         $dup = db_row('SELECT id FROM voter_import_batches WHERE file_checksum_sha256 = ?', [$checksum]);
         if ($dup) {
             flash('error','This file has already been imported (duplicate checksum detected).');
-            redirect('modules/import/index.php');
+            redirect('modules/import');
         }
 
         if (!move_uploaded_file($_FILES['pdf_file']['tmp_name'], $destPath)) {
             flash('error','Failed to save uploaded file. Check folder permissions.');
-            redirect('modules/import/index.php');
+            redirect('modules/import');
         }
 
         db_query(
@@ -80,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['_action']) && $_POST[
         $batchId = db_last_id();
         audit('import','upload','voter_import_batches',$batchId);
         flash('success', 'PDF "' . h($origName) . '" queued for processing (Batch #' . $batchId . ').');
-        redirect('modules/import/index.php');
+        redirect('modules/import');
     }
 }
 
@@ -304,7 +304,7 @@ function loadImpDistricts(stateId) {
   const sel = document.getElementById('imp_district');
   sel.innerHTML = '<option value="">Loading…</option>';
   if (!stateId) { sel.innerHTML = '<option value="">Select district</option>'; return; }
-  fetch(CIVICSCAN.url+'/modules/constituencies/save.php?action=districts&state_id='+stateId)
+  fetch(CIVICSCAN.url+'/modules/constituencies/save?action=districts&state_id='+stateId)
     .then(r=>r.json()).then(d=>{
       sel.innerHTML='<option value="">Select district</option>';
       d.forEach(dist=>{ sel.innerHTML+=`<option value="${dist.id}">${dist.name}</option>`; });

@@ -31,11 +31,11 @@ if ($action === 'delete') {
     require_admin();
     $id = (int)($_GET['id'] ?? 0);
     $c  = db_row('SELECT * FROM constituencies WHERE id = ? AND deleted_at IS NULL', [$id]);
-    if (!$c) { flash('error','Constituency not found.'); redirect('modules/constituencies/index.php'); }
+    if (!$c) { flash('error','Constituency not found.'); redirect('modules/constituencies'); }
     db_query('UPDATE constituencies SET deleted_at=NOW(), deleted_by=? WHERE id=?', [$me['id'], $id]);
     audit('constituencies','delete','constituencies',$id,$c,null);
     flash('success', '"'.$c['name'].'" deleted.');
-    redirect('modules/constituencies/index.php');
+    redirect('modules/constituencies');
 }
 
 // ── POST: Save (create or update) ─────────────────────────────────────────────
@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $status   = sanitize($_POST['status']            ?? 'active');
 
     if (!$stateId || !$distId || !$name) {
-        flash('error','State, District and Name are required.'); redirect('modules/constituencies/index.php');
+        flash('error','State, District and Name are required.'); redirect('modules/constituencies');
     }
 
     if ($id) {
@@ -67,5 +67,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         audit('constituencies','create','constituencies',db_last_id(),null,compact('name','stateId'));
         flash('success','Constituency "'.$name.'" added.');
     }
-    redirect('modules/constituencies/index.php');
+    redirect('modules/constituencies');
 }
