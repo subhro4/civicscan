@@ -1240,6 +1240,22 @@ INSERT INTO `districts` (`id`, `state_id`, `name`, `code`, `status`, `sort_order
 (696, 28, 'Uttar Dinajpur', 'UDD', 'active', 23);
 -- Note: UTs (29-36) typically have only 1 district each or no district-level representation
 
+-- Ensure UT districts exist (required by FK: constituencies.district_id is NOT NULL)
+INSERT INTO `districts` (`id`, `state_id`, `name`, `code`, `status`, `sort_order`) VALUES
+(700, 29, 'South Andaman', 'SAN', 'active', 1),
+(701, 30, 'Chandigarh', 'CHD', 'active', 1),
+(702, 31, 'Daman', 'DAM', 'active', 1),
+(703, 32, 'Jammu', 'JMU', 'active', 1),
+(704, 33, 'Leh', 'LEH', 'active', 1),
+(705, 34, 'Lakshadweep', 'LD', 'active', 1),
+(706, 35, 'New Delhi', 'NDL', 'active', 1),
+(707, 36, 'Puducherry', 'PDY', 'active', 1)
+ON DUPLICATE KEY UPDATE
+  `name` = VALUES(`name`),
+  `code` = VALUES(`code`),
+  `status` = VALUES(`status`),
+  `sort_order` = VALUES(`sort_order`);
+
 -- =====================================================================
 -- CITIES DATA (Major cities across all Indian states)
 -- =====================================================================
@@ -1814,16 +1830,16 @@ INSERT INTO `cities` (`id`, `state_id`, `district_id`, `name`, `status`, `sort_o
 (348, 28, 695, 'Kolkata', 'active', 1),
 (349, 28, 695, 'Jaynagar', 'active', 2),
 (350, 28, 695, 'Mathurapur', 'active', 3),
-(351, 28, 695, 'Diamond Harbour', 'active', 4);
+(351, 28, 695, 'Diamond Harbour', 'active', 4),
 -- Chandigarh (1 constituency: Chandigarh)
-(352, 30, NULL, 'Chandigarh', 'active', 1);
+(352, 30, 701, 'Chandigarh', 'active', 1),
 -- Dadra and Nagar Haveli and Daman and Diu (2 constituencies: Daman and Diu, Dadra and Nagar Haveli)
-(353, 31, NULL, 'Daman', 'active', 1),
-(354, 31, NULL, 'Silvassa', 'active', 1);
+(353, 31, 702, 'Daman', 'active', 1),
+(354, 31, 702, 'Silvassa', 'active', 1),
 -- Lakshadweep (1 constituency: Lakshadweep)
-(355, 34, NULL, 'Kavaratti', 'active', 1);
+(355, 34, 705, 'Kavaratti', 'active', 1),
 -- Puducherry (1 constituency: Puducherry)
-(356, 36, NULL, 'Puducherry', 'active', 1);
+(356, 36, 707, 'Puducherry', 'active', 1);
 
 -- =====================================================================
 -- CONSTITUENCIES DATA (All 543 Lok Sabha Constituencies of India)
@@ -2239,7 +2255,7 @@ INSERT INTO `constituencies` (`id`, `state_id`, `district_id`, `city_id`, `const
 
 -- PUDUCHERRY (1 Lok Sabha Seat)
 INSERT INTO `constituencies` (`id`, `state_id`, `district_id`, `city_id`, `constituency_type`, `constituency_number`, `name`, `code`, `status`) VALUES
-(356, 36, NULL, NULL, 'parliament', 1, 'Puducherry', 'PY-LS-01', 'active');
+(356, 36, 707, NULL, 'parliament', 1, 'Puducherry', 'PY-LS-01', 'active');
 
 -- RAJASTHAN (25 Lok Sabha Seats)
 INSERT INTO `constituencies` (`id`, `state_id`, `district_id`, `city_id`, `constituency_type`, `constituency_number`, `name`, `code`, `status`) VALUES
@@ -2433,131 +2449,75 @@ INSERT INTO `constituencies` (`id`, `state_id`, `district_id`, `city_id`, `const
 
 -- CHANDIGARH (1 Lok Sabha Seat)
 INSERT INTO `constituencies` (`id`, `state_id`, `district_id`, `city_id`, `constituency_type`, `constituency_number`, `name`, `code`, `status`) VALUES
-(526, 30, NULL, NULL, 'parliament', 1, 'Chandigarh', 'CH-LS-01', 'active');
+(526, 30, 701, NULL, 'parliament', 1, 'Chandigarh', 'CH-LS-01', 'active');
 
 -- DADRA AND NAGAR HAVELI AND DAMAN AND DIU (2 Lok Sabha Seats)
 INSERT INTO `constituencies` (`id`, `state_id`, `district_id`, `city_id`, `constituency_type`, `constituency_number`, `name`, `code`, `status`) VALUES
-(527, 31, NULL, NULL, 'parliament', 1, 'Daman and Diu', 'DN-LS-01', 'active'),
-(528, 31, NULL, NULL, 'parliament', 2, 'Dadra and Nagar Haveli', 'DN-LS-02', 'active');
+(527, 31, 702, NULL, 'parliament', 1, 'Daman and Diu', 'DN-LS-01', 'active'),
+(528, 31, 702, NULL, 'parliament', 2, 'Dadra and Nagar Haveli', 'DN-LS-02', 'active');
 
 -- DELHI (7 Lok Sabha Seats)
 INSERT INTO `constituencies` (`id`, `state_id`, `district_id`, `city_id`, `constituency_type`, `constituency_number`, `name`, `code`, `status`) VALUES
-(529, 35, NULL, NULL, 'parliament', 1, 'Chandni Chowk', 'DL-LS-01', 'active'),
-(530, 35, NULL, NULL, 'parliament', 2, 'North East Delhi', 'DL-LS-02', 'active'),
-(531, 35, NULL, NULL, 'parliament', 3, 'East Delhi', 'DL-LS-03', 'active'),
-(532, 35, NULL, NULL, 'parliament', 4, 'New Delhi', 'DL-LS-04', 'active'),
-(533, 35, NULL, NULL, 'parliament', 5, 'North West Delhi', 'DL-LS-05', 'active'),
-(534, 35, NULL, NULL, 'parliament', 6, 'West Delhi', 'DL-LS-06', 'active'),
-(535, 35, NULL, NULL, 'parliament', 7, 'South Delhi', 'DL-LS-07', 'active');
+(529, 35, 706, NULL, 'parliament', 1, 'Chandni Chowk', 'DL-LS-01', 'active'),
+(530, 35, 706, NULL, 'parliament', 2, 'North East Delhi', 'DL-LS-02', 'active'),
+(531, 35, 706, NULL, 'parliament', 3, 'East Delhi', 'DL-LS-03', 'active'),
+(532, 35, 706, NULL, 'parliament', 4, 'New Delhi', 'DL-LS-04', 'active'),
+(533, 35, 706, NULL, 'parliament', 5, 'North West Delhi', 'DL-LS-05', 'active'),
+(534, 35, 706, NULL, 'parliament', 6, 'West Delhi', 'DL-LS-06', 'active'),
+(535, 35, 706, NULL, 'parliament', 7, 'South Delhi', 'DL-LS-07', 'active');
 
 -- JAMMU AND KASHMIR (5 Lok Sabha Seats)
 INSERT INTO `constituencies` (`id`, `state_id`, `district_id`, `city_id`, `constituency_type`, `constituency_number`, `name`, `code`, `status`) VALUES
-(536, 32, NULL, NULL, 'parliament', 1, 'Baramulla', 'JK-LS-01', 'active'),
-(537, 32, NULL, NULL, 'parliament', 2, 'Srinagar', 'JK-LS-02', 'active'),
-(538, 32, NULL, NULL, 'parliament', 3, 'Anantnag-Rajouri', 'JK-LS-03', 'active'),
-(539, 32, NULL, NULL, 'parliament', 4, 'Udhampur', 'JK-LS-04', 'active'),
-(540, 32, NULL, NULL, 'parliament', 5, 'Jammu', 'JK-LS-05', 'active');
+(536, 32, 703, NULL, 'parliament', 1, 'Baramulla', 'JK-LS-01', 'active'),
+(537, 32, 703, NULL, 'parliament', 2, 'Srinagar', 'JK-LS-02', 'active'),
+(538, 32, 703, NULL, 'parliament', 3, 'Anantnag-Rajouri', 'JK-LS-03', 'active'),
+(539, 32, 703, NULL, 'parliament', 4, 'Udhampur', 'JK-LS-04', 'active'),
+(540, 32, 703, NULL, 'parliament', 5, 'Jammu', 'JK-LS-05', 'active');
 
 -- LADAKH (1 Lok Sabha Seat)
 INSERT INTO `constituencies` (`id`, `state_id`, `district_id`, `city_id`, `constituency_type`, `constituency_number`, `name`, `code`, `status`) VALUES
-(541, 33, NULL, NULL, 'parliament', 1, 'Ladakh', 'LA-LS-01', 'active');
+(541, 33, 704, NULL, 'parliament', 1, 'Ladakh', 'LA-LS-01', 'active');
 
 -- LAKSHADWEEP (1 Lok Sabha Seat)
 INSERT INTO `constituencies` (`id`, `state_id`, `district_id`, `city_id`, `constituency_type`, `constituency_number`, `name`, `code`, `status`) VALUES
-(542, 34, NULL, NULL, 'parliament', 1, 'Lakshadweep', 'LD-LS-01', 'active');
+(542, 34, 705, NULL, 'parliament', 1, 'Lakshadweep', 'LD-LS-01', 'active');
 
 -- ANDAMAN AND NICOBAR ISLANDS (1 Lok Sabha Seat)
 INSERT INTO `constituencies` (`id`, `state_id`, `district_id`, `city_id`, `constituency_type`, `constituency_number`, `name`, `code`, `status`) VALUES
-(543, 29, NULL, NULL, 'parliament', 1, 'Andaman and Nicobar Islands', 'AN-LS-01', 'active');
+(543, 29, 700, NULL, 'parliament', 1, 'Andaman and Nicobar Islands', 'AN-LS-01', 'active');
 
 -- =====================================================================
--- CONSTITUENCY PARTS DATA (Sample parts - 2 per constituency for demo)
--- Note: Full parts data requires detailed ECI polling station data
+-- CONSTITUENCY PARTS DATA (Generated demo parts)
+-- Note: Full parts data requires detailed ECI polling station data.
 -- =====================================================================
-INSERT INTO `constituency_parts` (`id`, `constituency_id`, `part_number`, `part_name`, `polling_station_name`, `polling_station_address`, `locality`, `total_electors`, `total_male`, `total_female`, `status`) VALUES
-(1, 1, '001', 'Cooch Behar Part 1', 'PS 1 - Cooch Behar Town', 'Town Hall Road, Cooch Behar', 'Town Area', 1200, 650, 550, 'active'),
-(2, 1, '002', 'Cooch Behar Part 2', 'PS 2 - New Town', 'New Town Colony, Cooch Behar', 'New Town', 1150, 600, 550, 'active'),
-(3, 1, '003', 'Cooch Behar Part 3', 'PS 3 - Old Town', 'MG Road, Cooch Behar', 'Old Town', 1100, 580, 520, 'active'),
-(4, 2, '001', 'Alipurduars Part 1', 'PS 1 - Alipurduars', 'Station Road, Alipurduars', 'Town Area', 1250, 680, 570, 'active'),
-(5, 2, '002', 'Alipurduars Part 2', 'PS 2 - New Bazar', 'New Market, Alipurduars', 'New Market', 1180, 620, 560, 'active'),
-(6, 3, '001', 'Jalpaiguri Part 1', 'PS 1 - Jalpaiguri Town', 'MG Road, Jalpaiguri', 'Town Area', 1300, 700, 600, 'active'),
-(7, 3, '002', 'Jalpaiguri Part 2', 'PS 2 - Dabgram', 'Dabgram Industrial Area', 'Industrial', 1220, 650, 570, 'active'),
-(8, 4, '001', 'Darjeeling Part 1', 'PS 1 - Darjeeling Town', 'Mall Road, Darjeeling', 'Town Area', 1050, 550, 500, 'active'),
-(9, 4, '002', 'Darjeeling Part 2', 'PS 2 - Sukhiapokhri', 'Sukhiapokhri, Darjeeling', 'Hills', 980, 520, 460, 'active'),
-(10, 5, '001', 'Raiganj Part 1', 'PS 1 - Raiganj Town', 'Station Road, Raiganj', 'Town Area', 1280, 690, 590, 'active'),
-(11, 5, '002', 'Raiganj Part 2', 'PS 2 - Goalpokhar', 'Goalpokhar More, Raiganj', 'Rural', 1150, 610, 540, 'active'),
-(12, 6, '001', 'Balurghat Part 1', 'PS 1 - Balurghat Town', 'Town Hall, Balurghat', 'Town Area', 1180, 630, 550, 'active'),
-(13, 6, '002', 'Balurghat Part 2', 'PS 2 - Hili', 'Hili Border Area, Balurghat', 'Border', 1100, 590, 510, 'active'),
-(14, 7, '001', 'Maldaha Uttar Part 1', 'PS 1 - Malda Town', 'New Market, Malda', 'Town Area', 1350, 720, 630, 'active'),
-(15, 7, '002', 'Maldaha Uttar Part 2', 'PS 2 - Old Malda', 'Old Town, Malda', 'Old Town', 1220, 650, 570, 'active'),
-(16, 8, '001', 'Maldaha Dakshin Part 1', 'PS 1 - Samsi', 'Samsi College Road, Malda', 'Rural', 1150, 610, 540, 'active'),
-(17, 8, '002', 'Maldaha Dakshin Part 2', 'PS 2 - Kaliachak', 'Kaliachak High School, Malda', 'Rural', 1280, 680, 600, 'active'),
-(18, 9, '001', 'Jangipur Part 1', 'PS 1 - Jangipur Town', 'Baharampur Road, Malda', 'Town Area', 1190, 640, 550, 'active'),
-(19, 9, '002', 'Jangipur Part 2', 'PS 2 - Raghunathganj', 'Raghunathganj Bazar, Malda', 'Rural', 1160, 620, 540, 'active'),
-(20, 10, '001', 'Baharampur Part 1', 'PS 1 - Baharampur Town', 'Court Road, Baharampur', 'Town Area', 1320, 710, 610, 'active'),
-(21, 10, '002', 'Baharampur Part 2', 'PS 2 - Kandi', 'Kandi College Road, Murshidabad', 'Town Area', 1180, 630, 550, 'active'),
-(22, 11, '001', 'Krishnanagar Part 1', 'PS 1 - Krishnanagar Town', 'College Road, Nadia', 'Town Area', 1240, 660, 580, 'active'),
-(23, 11, '002', 'Krishnanagar Part 2', 'PS 2 - Debagram', 'Debagram College, Nadia', 'Rural', 1120, 590, 530, 'active'),
-(24, 12, '001', 'Ranaghat Part 1', 'PS 1 - Ranaghat Town', 'Station Road, Nadia', 'Town Area', 1210, 650, 560, 'active'),
-(25, 12, '002', 'Ranaghat Part 2', 'PS 2 - Shikarpur', 'Shikarpur High School, Nadia', 'Rural', 1150, 610, 540, 'active'),
-(26, 13, '001', 'Bangaon Part 1', 'PS 1 - Bangaon Town', 'Town Hall Road, North 24 Parganas', 'Town Area', 1280, 690, 590, 'active'),
-(27, 13, '002', 'Bangaon Part 2', 'PS 2 - Gaighata', 'Gaighata Bazar, North 24 Parganas', 'Rural', 1190, 640, 550, 'active'),
-(28, 14, '001', 'Barrackpore Part 1', 'PS 1 - Barrackpore Town', 'Grand Trunk Road, North 24 Parganas', 'Town Area', 1350, 720, 630, 'active'),
-(29, 14, '002', 'Barrackpore Part 2', 'PS 2 - Titagarh', 'Titagarh Paper Mill, North 24 Parganas', 'Industrial', 1220, 650, 570, 'active'),
-(30, 15, '001', 'Dum Dum Part 1', 'PS 1 - Dum Dum Town', 'Dum Dum Road, North 24 Parganas', 'Town Area', 1380, 740, 640, 'active'),
-(31, 15, '002', 'Dum Dum Part 2', 'PS 2 - Naihati', 'Naihati Station Road, North 24 Parganas', 'Suburban', 1260, 670, 590, 'active'),
-(32, 16, '001', 'Barasat Part 1', 'PS 1 - Barasat Town', 'Kalyani Highway, North 24 Parganas', 'Town Area', 1320, 710, 610, 'active'),
-(33, 16, '002', 'Barasat Part 2', 'PS 2 - Habra', 'Habra Junction, North 24 Parganas', 'Suburban', 1240, 660, 580, 'active'),
-(34, 17, '001', 'Basirhat Part 1', 'PS 1 - Basirhat Town', 'Basirhat College Road, North 24 Parganas', 'Town Area', 1190, 640, 550, 'active'),
-(35, 17, '002', 'Basirhat Part 2', 'PS 2 - Hasnabad', 'Hasnabad Station, North 24 Parganas', 'Rural', 1130, 600, 530, 'active'),
-(36, 18, '001', 'Jaynagar Part 1', 'PS 1 - Jaynagar Town', 'Jaynagar Majilpur Road, South 24 Parganas', 'Town Area', 1150, 620, 530, 'active'),
-(37, 18, '002', 'Jaynagar Part 2', 'PS 2 - Kultali', 'Kultali Bazar, South 24 Parganas', 'Rural', 1080, 580, 500, 'active'),
-(38, 19, '001', 'Mathurapur Part 1', 'PS 1 - Mathurapur Town', 'Diamond Harbour Road, South 24 Parganas', 'Town Area', 1120, 600, 520, 'active'),
-(39, 19, '002', 'Mathurapur Part 2', 'PS 2 - Kulpi', 'Kulpi Bazar, South 24 Parganas', 'Rural', 1090, 590, 500, 'active'),
-(40, 20, '001', 'Diamond Harbour Part 1', 'PS 1 - Diamond Harbour', 'Fraser Road, South 24 Parganas', 'Town Area', 1260, 680, 580, 'active'),
-(41, 20, '002', 'Diamond Harbour Part 2', 'PS 2 - Falta', 'Falta Industrial Area, South 24 Parganas', 'Industrial', 1180, 630, 550, 'active'),
-(42, 21, '001', 'Jadavpur Part 1', 'PS 1 - Jadavpur University', 'Jadavpur University Campus, Kolkata', 'Campus', 1420, 780, 640, 'active'),
-(43, 21, '002', 'Jadavpur Part 2', 'PS 2 - Santoshpur', 'Santoshpur Avenue, Kolkata', 'Residential', 1350, 720, 630, 'active'),
-(44, 22, '001', 'Kolkata Dakshin Part 1', 'PS 1 - Tollygunge', 'Tollygunge Metro Station, Kolkata', 'South Kolkata', 1280, 680, 600, 'active'),
-(45, 22, '002', 'Kolkata Dakshin Part 2', 'PS 2 - Behala', 'Behala Square, Kolkata', 'Suburban', 1310, 700, 610, 'active'),
-(46, 23, '001', 'Kolkata Uttar Part 1', 'PS 1 - Chowringhee', 'A.J.C. Bose Road, Kolkata', 'Central Kolkata', 1180, 630, 550, 'active'),
-(47, 23, '002', 'Kolkata Uttar Part 2', 'PS 2 - Amherst Street', 'College Street, Kolkata', 'North Kolkata', 1150, 610, 540, 'active'),
-(48, 24, '001', 'Howrah Part 1', 'PS 1 - Howrah Station', 'Howrah Station Road, Howrah', 'Town Area', 1380, 740, 640, 'active'),
-(49, 24, '002', 'Howrah Part 2', 'PS 2 - Shibpur', 'Andul Road, Howrah', 'Suburban', 1260, 670, 590, 'active'),
-(50, 25, '001', 'Uluberia Part 1', 'PS 1 - Uluberia Town', 'Uluberia College Road, Howrah', 'Town Area', 1220, 650, 570, 'active'),
-(51, 25, '002', 'Uluberia Part 2', 'PS 2 - Bagnan', 'Bagnan College Road, Howrah', 'Rural', 1150, 610, 540, 'active'),
-(52, 26, '001', 'Srerampur Part 1', 'PS 1 - Srerampore Town', 'Srerampore Station Road, Hooghly', 'Town Area', 1290, 690, 600, 'active'),
-(53, 26, '002', 'Srerampur Part 2', 'PS 2 - Chandannagar', 'Chandannagar GT Road, Hooghly', 'Suburban', 1240, 660, 580, 'active'),
-(54, 27, '001', 'Hooghly Part 1', 'PS 1 - Chinsura Town', 'Chinsura Station Road, Hooghly', 'Town Area', 1260, 680, 580, 'active'),
-(55, 27, '002', 'Hooghly Part 2', 'PS 2 - Bansberia', 'Bansberia Ghat Road, Hooghly', 'Suburban', 1180, 630, 550, 'active'),
-(56, 28, '001', 'Arambagh Part 1', 'PS 1 - Arambagh Town', 'Arambagh Court Road, Hooghly', 'Town Area', 1140, 610, 530, 'active'),
-(57, 28, '002', 'Arambagh Part 2', 'PS 2 - Goghat', 'Goghat Bazar, Hooghly', 'Rural', 1080, 580, 500, 'active'),
-(58, 29, '001', 'Tamluk Part 1', 'PS 1 - Tamluk Town', 'Tamluk College Road, Purba Medinipur', 'Town Area', 1220, 650, 570, 'active'),
-(59, 29, '002', 'Tamluk Part 2', 'PS 2 - Haldia', 'Haldia Industrial Township, Purba Medinipur', 'Industrial', 1350, 730, 620, 'active'),
-(60, 30, '001', 'Kanthi Part 1', 'PS 1 - Kanthi Town', 'Kanthi Municipal Office, Purba Medinipur', 'Town Area', 1180, 630, 550, 'active'),
-(61, 30, '002', 'Kanthi Part 2', 'PS 2 - Egra', 'Egra College Road, Purba Medinipur', 'Rural', 1120, 600, 520, 'active'),
-(62, 31, '001', 'Ghatal Part 1', 'PS 1 - Ghatal Town', 'Ghatal Bazar, Paschim Medinipur', 'Town Area', 1160, 620, 540, 'active'),
-(63, 31, '002', 'Ghatal Part 2', 'PS 2 - Daspur', 'Daspur High School, Paschim Medinipur', 'Rural', 1140, 610, 530, 'active'),
-(64, 32, '001', 'Jhargram Part 1', 'PS 1 - Jhargram Town', 'Jhargram College Road, Jhargram', 'Town Area', 1050, 560, 490, 'active'),
-(65, 32, '002', 'Jhargram Part 2', 'PS 2 - Gopiballavpur', 'Gopiballavpur Block Office, Jhargram', 'Rural', 980, 530, 450, 'active'),
-(66, 33, '001', 'Medinipur Part 1', 'PS 1 - Midnapore Town', 'Midnapore College Road, Paschim Medinipur', 'Town Area', 1240, 670, 570, 'active'),
-(67, 33, '002', 'Medinipur Part 2', 'PS 2 - Kharagpur', 'Kharagpur IIT Gate, Paschim Medinipur', 'Educational', 1380, 750, 630, 'active'),
-(68, 34, '001', 'Purulia Part 1', 'PS 1 - Purulia Town', 'Purulia Court Road, Purulia', 'Town Area', 1220, 660, 560, 'active'),
-(69, 34, '002', 'Purulia Part 2', 'PS 2 - Raghunathpur', 'Raghunathpur Bazar, Purulia', 'Rural', 1150, 620, 530, 'active'),
-(70, 35, '001', 'Bankura Part 1', 'PS 1 - Bankura Town', 'Bankura Collectorate, Bankura', 'Town Area', 1180, 640, 540, 'active'),
-(71, 35, '002', 'Bankura Part 2', 'PS 2 - Bishnupur', 'Bishnupur Rajbari, Bankura', 'Town Area', 1120, 600, 520, 'active'),
-(72, 36, '001', 'Bishnupur Part 1', 'PS 1 - Bishnupur Town', 'Bishnupur Court, Bankura', 'Town Area', 1140, 610, 530, 'active'),
-(73, 36, '002', 'Bishnupur Part 2', 'PS 2 - Kotulpur', 'Kotulpur College Road, Bankura', 'Rural', 1080, 580, 500, 'active'),
-(74, 37, '001', 'Bardhaman Purba Part 1', 'PS 1 - Kalna Town', 'Kalna Municipality, Purba Bardhaman', 'Town Area', 1160, 630, 530, 'active'),
-(75, 37, '002', 'Bardhaman Purba Part 2', 'PS 2 - Memari', 'Memari College Road, Purba Bardhaman', 'Rural', 1120, 600, 520, 'active'),
-(76, 38, '001', 'Bardhaman-Durgapur Part 1', 'PS 1 - Durgapur Steel Plant', 'Durgapur Steel Township, Paschim Bardhaman', 'Industrial', 1420, 770, 650, 'active'),
-(77, 38, '002', 'Bardhaman-Durgapur Part 2', 'PS 2 - Durgapur City', 'City Centre, Durgapur, Paschim Bardhaman', 'City', 1380, 740, 640, 'active'),
-(78, 39, '001', 'Bardhaman Uttar Part 1', 'PS 1 - Bardhaman Town', 'Bardhaman Station Road, Purba Bardhaman', 'Town Area', 1280, 690, 590, 'active'),
-(79, 39, '002', 'Bardhaman Uttar Part 2', 'PS 2 - Guskara', 'Guskara College Road, Purba Bardhaman', 'Rural', 1140, 610, 530, 'active'),
-(80, 40, '001', 'Asansol Part 1', 'PS 1 - Asansol Town', 'Asansol Court Road, Paschim Bardhaman', 'Town Area', 1340, 720, 620, 'active'),
-(81, 40, '002', 'Asansol Part 2', 'PS 2 - Raniganj', 'Raniganj Coal Mines, Paschim Bardhaman', 'Mining', 1260, 680, 580, 'active'),
-(82, 41, '001', 'Bolpur Part 1', 'PS 1 - Bolpur Town', 'Bolpur College Road, Birbhum', 'Town Area', 1120, 600, 520, 'active'),
-(83, 41, '002', 'Bolpur Part 2', 'PS 2 - Santiniketan', 'Visva-Bharati University, Birbhum', 'Educational', 1050, 560, 490, 'active'),
-(84, 42, '001', 'Birbhum Part 1', 'PS 1 - Suri Town', 'Suri Court Road, Birbhum', 'Town Area', 1180, 640, 540, 'active'),
-(85, 42, '002', 'Birbhum Part 2', 'PS 2 - Rampurhat', 'Rampurhat Station Road, Birbhum', 'Suburban', 1140, 610, 530, 'active');
+DELETE FROM `constituency_parts`;
+
+WITH RECURSIVE
+  nums AS (
+    SELECT 1 AS n
+    UNION ALL
+    SELECT n + 1 FROM nums WHERE n < 543
+  ),
+  parts AS (
+    SELECT 1 AS p, '001' AS part_number
+    UNION ALL
+    SELECT 2 AS p, '002' AS part_number
+  )
+INSERT INTO `constituency_parts`
+  (`constituency_id`, `part_number`, `part_name`, `polling_station_name`, `polling_station_address`, `locality`, `total_electors`, `total_male`, `total_female`, `status`)
+SELECT
+  c.id AS constituency_id,
+  parts.part_number,
+  CONCAT(c.name, ' Part ', parts.p) AS part_name,
+  CONCAT('PS ', parts.p, ' - ', c.name) AS polling_station_name,
+  CONCAT('Sector ', parts.p, ', ', COALESCE(c.code, CONCAT('CON-', LPAD(c.id, 3, '0')))) AS polling_station_address,
+  CONCAT('Part ', parts.p, ' Area') AS locality,
+  (900 + MOD((c.id * 37 + parts.p * 113), 800)) AS total_electors,
+  FLOOR((900 + MOD((c.id * 37 + parts.p * 113), 800)) * (0.52 + (MOD(c.id + parts.p, 7) - 3) * 0.005)) AS total_male,
+  (900 + MOD((c.id * 37 + parts.p * 113), 800)) - FLOOR((900 + MOD((c.id * 37 + parts.p * 113), 800)) * (0.52 + (MOD(c.id + parts.p, 7) - 3) * 0.005)) AS total_female,
+  'active' AS status
+FROM constituencies c
+JOIN nums ON nums.n = c.id
+CROSS JOIN parts
+WHERE c.deleted_at IS NULL;
 -- =====================================================================
