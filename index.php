@@ -362,16 +362,6 @@ tailwind.config = {
             </div>
           </div>
         </div>
-        <!-- Floating import badge -->
-        <div class="absolute -bottom-4 -left-6 bg-surface-800 border border-emerald-500/30 rounded-xl px-4 py-2.5 flex items-center gap-2.5 shadow-xl animate-fade-in" style="animation-delay:1s;">
-          <div class="w-7 h-7 rounded-lg bg-emerald-500/15 flex items-center justify-center">
-            <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-          </div>
-          <div>
-            <div class="text-xs font-semibold text-white">PDF Import Complete</div>
-            <div class="text-xs text-slate-500">1,248 voters imported</div>
-          </div>
-        </div>
       </div>
     </div>
   </div>
