@@ -99,7 +99,8 @@ function fmt_bytes(int $bytes): string {
 }
 
 // ─── Status Badge HTML ────────────────────────────────────────────────────────
-function status_badge(string $status): string {
+function status_badge(?string $status): string {
+    $status = $status ?: 'inactive';
     $map = [
         'active'               => 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30',
         'inactive'             => 'bg-slate-500/15 text-slate-400 border border-slate-500/30',

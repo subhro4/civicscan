@@ -17,7 +17,20 @@ $breadcrumbs = [
 ];
 
 $errors = [];
-$input  = ['role' => 'moderator', 'status' => 'active', 'theme_preference' => 'dark'];
+$input  = [
+    'role'             => 'moderator',
+    'status'           => 'active',
+    'theme_preference' => 'dark',
+    'name'             => '',
+    'email'            => '',
+    'phone'            => '',
+    'password'         => '',
+    'password_confirm' => '',
+    'address_line_1'   => '',
+    'city'             => '',
+    'state'            => '',
+    'postal_code'      => '',
+];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!csrf_verify()) csrf_fail();
@@ -88,7 +101,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <p class="text-slate-500 text-sm mt-0.5">Create a new administrator or moderator account.</p>
 </div>
 
-<form method="POST" class="max-w-2xl">
+<form method="POST">
   <?= csrf_field() ?>
 
   <div class="card mb-5">

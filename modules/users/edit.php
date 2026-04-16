@@ -97,11 +97,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <?= avatar($user, 'w-12 h-12') ?>
   <div>
     <h1 class="font-display font-bold text-xl text-white"><?= h($user['name']) ?></h1>
-    <div class="flex items-center gap-2 mt-1"><?= role_badge($user['role']) ?> <?= status_badge($user['status']) ?></div>
-  </div>
-</div>
-
-<!-- Tabs -->
+      <div class="flex items-center gap-2 mt-1"><?= role_badge($user['role'] ?? 'moderator') ?> <?= status_badge($user['status'] ?? 'inactive') ?></div>
 <div class="flex border-b border-surface-600 mb-6 gap-1">
   <button onclick="showTab('profile')" id="tab-profile" class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-brand-500 text-brand-400 -mb-px">Profile</button>
   <button onclick="showTab('password')" id="tab-password" class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-transparent text-slate-500 hover:text-slate-300 -mb-px transition-colors">Reset Password</button>
